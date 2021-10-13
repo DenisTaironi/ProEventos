@@ -12,7 +12,7 @@
   </div>
 
   <div class="col-md-6">
-    <form class="p-1">
+    <form class="p-1" [formGroup]="form">
       <div class="pb-2 d-block d-md-none">
         <h3 class="border-bottom">Cadastro de Usuário</h3>
       </div>
@@ -23,7 +23,12 @@
             type="text"
             class="form-control"
             placeholder="Insira o Primeiro nome"
+            formControlName="primeiroNome"
+            [ngClass]="{
+              'is-invalid': f.primeiroNome.errors && f.primeiroNome.touched
+            }"
           />
+          <div class="invalid-feedback">primeiro nome é obrigatório</div>
         </div>
         <div class="form-group col-sm-6">
           <label>Último nome</label>
@@ -31,16 +36,29 @@
             type="text"
             class="form-control"
             placeholder="Insira o Último nome"
+            formControlName="ultimoNome"
+            [ngClass]="{
+              'is-invalid': f.ultimoNome.errors && f.ultimoNome.touched
+            }"
           />
+          <div class="invalid-feedback">último nome é obrigatório</div>
         </div>
       </div>
       <div class="form-group">
-        <label for="">Email:</label>
+        <label for="">E-mail:</label>
         <input
           class="form-control"
           type="text"
-          placeholder="Insira o Nome Completo"
+          placeholder="Insira o E-mail"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': f.email.errors && f.email.touched }"
         />
+        <div *ngIf="f.email.errors?.required" class="invalid-feedback">
+          e-mail é obrigatório
+        </div>
+        <div *ngIf="f.email.errors?.email" class="invalid-feedback">
+          insira um e-mail válido
+        </div>
       </div>
       <div class="form-group">
         <label for="">Usuario:</label>
@@ -48,24 +66,52 @@
           class="form-control"
           type="text"
           placeholder="Insira o nome de Usuário"
+          formControlName="userName"
+          [ngClass]="{ 'is-invalid': f.userName.errors && f.userName.touched }"
         />
+        <div class="invalid-feedback">nome de usuário é obrigatório</div>
       </div>
       <div class="form-row">
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-4">
           <label for="">Senha:</label>
           <input
             class="form-control"
             type="password"
             placeholder="Digite uma Senha"
+            formControlName="senha"
+            [ngClass]="{ 'is-invalid': f.senha.errors && f.senha.touched }"
           />
+          <div
+            *ngIf="f.senha.errors?.required && f.senha.touched"
+            class="invalid-feedback"
+          >
+            senha é obrigatório
+          </div>
+          <div *ngIf="f.senha.errors?.minlength" class="invalid-feedback">
+            senha com no mínimo 6 caracteres
+          </div>
         </div>
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-4">
           <label for="">Confirmar Senha:</label>
           <input
             class="form-control"
             type="password"
             placeholder="Confirme a Senha"
+            formControlName="confirmeSenha"
+            [ngClass]="{'is-invalid': f.confirmeSenha.errors && f.confirmeSenha.touched}"
           />
+          <div
+            *ngIf="f.confirmeSenha.errors?.required && f.confirmeSenha.touched"
+            class="invalid-feedback"
+          >
+            confirmar senha é obrigatório
+          </div>
+          <div
+            *ngIf="f.confirmeSenha.errors?.mustMach"
+            class="invalid-feedback"
+          >
+            as senhas devem combinar
+          </div>
         </div>
       </div>
       <div class="form-row p-1 mb-3">
@@ -83,13 +129,15 @@
       <div class="form-row">
         <div class="form-group col-12">
           <button class="btn btn-lg btn-success btn-block px-5">
-            Registar
+            Registrar
           </button>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-12">
-          <a class="btn btn-link btn-block" routerLink="/user/login"> Já sou Cadastrado </a>
+          <a class="btn btn-link btn-block" routerLink="/user/login">
+            Já sou Cadastrado
+          </a>
         </div>
       </div>
     </form>
