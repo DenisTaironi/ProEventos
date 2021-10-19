@@ -9,7 +9,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{ 'is-invalid': f.tema.errors && f.tema.touched }"
+            [ngClass]="cssValidator(f.tema)"
             formControlName="tema"
             placeholder="Insira o tema"
           />
@@ -30,7 +30,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{ 'is-invalid': f.local.errors && f.local.touched }"
+            [ngClass]="cssValidator(f.local)"
             formControlName="local"
             placeholder="Insira o local"
           />
@@ -41,7 +41,9 @@
           <input
             type="datetime"
             class="form-control"
-            [ngClass]="{ 'is-invalid': f.dataEvento.errors && f.dataEvento.touched }"
+            [ngClass]="cssValidator(f.dataEvento)"
+            bsDatepicker
+            [bsConfig]="bsConfig"
             formControlName="dataEvento"
             placeholder="Insira data e hora"
           />
@@ -54,7 +56,7 @@
           <input
             type="number"
             class="form-control"
-            [ngClass]="{ 'is-invalid': f.qtdPessoas.errors && f.qtdPessoas.touched }"
+            [ngClass]="cssValidator(f.qtdPessoas)"
             formControlName="qtdPessoas"
             placeholder="Insira a quantidade de pessoas"
           />
@@ -70,7 +72,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{ 'is-invalid': f.telefone.errors && f.telefone.touched }"
+            [ngClass]="cssValidator(f.telefone)"
             formControlName="telefone"
             placeholder="(000) 90000-0000"
           />
@@ -80,7 +82,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{ 'is-invalid': f.email.errors && f.email.touched }"
+            [ngClass]="cssValidator(f.email)"
             formControlName="email"
             placeholder="Insira um e-mail"
           />
@@ -94,7 +96,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{ 'is-invalid': f.imagemURL.errors && f.imagemURL.touched }"
+            [ngClass]="cssValidator(f.imagemURL)"
             formControlName="imagemURL"
             placeholder="Insira uma imagem"
           />
@@ -110,7 +112,7 @@
         >
           Cancelar Alteração
         </button>
-        <button class="btn btn-success" [disabled]="!form.valid">
+        <button class="btn btn-success" [disabled]="!form.valid" (click)="salvarAlteracao()">
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           Salvar Evento
         </button>
