@@ -15,7 +15,7 @@ namespace ProEventos.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.10");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("ProEventos.Domain.Evento", b =>
                 {
@@ -64,14 +64,14 @@ namespace ProEventos.Persistence.Migrations
                     b.Property<int>("EventoId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Nome")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("Preco")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Quantidade")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("nome")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -150,13 +150,13 @@ namespace ProEventos.Persistence.Migrations
 
             modelBuilder.Entity("ProEventos.Domain.Lote", b =>
                 {
-                    b.HasOne("ProEventos.Domain.Evento", "evento")
+                    b.HasOne("ProEventos.Domain.Evento", "Evento")
                         .WithMany("Lotes")
                         .HasForeignKey("EventoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("evento");
+                    b.Navigation("Evento");
                 });
 
             modelBuilder.Entity("ProEventos.Domain.PalestranteEvento", b =>

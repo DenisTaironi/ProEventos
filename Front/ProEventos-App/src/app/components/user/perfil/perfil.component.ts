@@ -1,6 +1,7 @@
+import { ValidatorField } from './../../../helpers/ValidatorField';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidatorField } from '@app/helpers/ValidatorField';
+import { AbstractControlOptions, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -11,18 +12,15 @@ export class PerfilComponent implements OnInit {
 
   form!: FormGroup;
 
-  get f(): any {
-    return this.form.controls;
-  }
-  constructor(public fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.validation();
   }
 
   private validation(): void {
-    const formOption: AbstractControlOptions = {
-      validators: ValidatorField.mustMatch('senha', 'confirmeSenha')
+    const formOptions: AbstractControlOptions = {
+      validators: ValidatorField.MustMatch('senha', 'confirmeSenha')
     };
 
     this.form = this.fb.group({
@@ -30,17 +28,27 @@ export class PerfilComponent implements OnInit {
       primeiroNome: ['', Validators.required],
       ultimoNome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      telefone: ['', Validators.required],
-      funcao: ['', Validators.required],
+      telefone: ['', [Validators.required]],
       descricao: ['', Validators.required],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
-      confirmeSenha: ['', Validators.required],
-    },formOption);
+      funcao: ['', Validators.required],
+      senha: ['', [Validators.minLength(6), Validators.nullValidator]],
+      confirmeSenha: ['', Validators.nullValidator]
+    }, formOptions);
   }
 
-  public resetForm(event: any): void{
+  // Conveniente para pegar um FormField apenas com a letra F
+  get f(): any { return this.form.controls; }
+
+  onSubmit(): void {
+
+    // Vai parar aqui se o form estiver inválido
+    if (this.form.invalid) {
+      return;
+    }
+  }
+
+  public resetForm(event: any): void {
     event.preventDefault();
     this.form.reset();
   }
-
 }

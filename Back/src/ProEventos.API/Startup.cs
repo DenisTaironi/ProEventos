@@ -27,17 +27,20 @@ namespace ProEventos.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProEventosContext>( //referencia do banco de dados e configuração de conexão
+            services.AddDbContext<ProEventosContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
             services.AddControllers()
                     .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = 
-                    Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                    ); // adição ao serviço para evitar loop circular na chamada dos objetos (eventos, lotes, redesocial, palestrantes)
+                        Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    );
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<IGeralPersist, GeralPersist>();
             services.AddScoped<IEventoPersist, EventoPersist>();
+
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
@@ -61,9 +64,9 @@ namespace ProEventos.API
 
             app.UseAuthorization();
 
-            app.UseCors(acesso => acesso.AllowAnyHeader()
-                                        .AllowAnyMethod()
-                                        .AllowAnyOrigin());
+            app.UseCors(x => x.AllowAnyHeader()
+                              .AllowAnyMethod()
+                              .AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {
