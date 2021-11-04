@@ -14,6 +14,7 @@ import { RegistrationComponent } from './components/user/registration/registrati
 import { PerfilComponent } from './components/user/perfil/perfil.component';
 
 import { ContatosComponent } from './components/contatos/contatos.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -23,9 +24,7 @@ const routes: Routes = [
       { path: 'registration', component: RegistrationComponent },
     ]
   },
-  {
-    path: 'user/perfil', component: PerfilComponent
-  },
+  { path: 'user/perfil', component: PerfilComponent, canActivate: [AuthGuard] },
   { path: 'eventos', redirectTo: 'eventos/lista' },
   {
     path: 'eventos', component: EventosComponent,
@@ -33,11 +32,11 @@ const routes: Routes = [
       { path: 'detalhe/:id', component: EventoDetalheComponent },
       { path: 'detalhe', component: EventoDetalheComponent },
       { path: 'lista', component: EventoListaComponent },
-    ],
+    ], canActivate: [AuthGuard]
   },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'palestrantes', component: PalestrantesComponent },
-  { path: 'contatos', component: ContatosComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'palestrantes', component: PalestrantesComponent, canActivate: [AuthGuard]  },
+  { path: 'contatos', component: ContatosComponent, canActivate: [AuthGuard]  },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];

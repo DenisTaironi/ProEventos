@@ -46,7 +46,7 @@ namespace ProEventos.API
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 8;
+                options.Password.RequiredLength = 6;
             });
 
             builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
