@@ -51,7 +51,7 @@
                 type="datetime"
                 class="form-control"
                 [ngClass]="cssValidator(f.dataEvento)"
-                value="{{ evento.dataEvento | DateFormatPipe }}"
+                value="{{ evento.dataEvento | date: 'MM/dd/yyyy hh:mm a' }}"
                 bsDatepicker
                 [bsConfig]="bsConfig"
                 formControlName="dataEvento"
@@ -310,7 +310,7 @@
           <p class="card-text">
             <b>Local:</b> {{ evento.local }}
             <br />
-            <b>Data:</b> {{ evento.dataEvento | DateFormatPipe }}
+            <b>Data:</b> {{ evento.dataEvento | date: 'MM/dd/yyyy hh:mm a' }}
           </p>
           <hr />
           <p class="card-text">
