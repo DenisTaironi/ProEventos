@@ -26,6 +26,7 @@ import { PalestrantesComponent } from './components/palestrantes/palestrantes.co
 import { PerfilComponent } from './components/user/perfil/perfil.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
+import { RodapeComponent } from './shared/rodape/rodape.component';
 
 import { EventoService } from './services/evento.service';
 import { LoteService } from './services/lote.service';
@@ -55,7 +56,8 @@ defineLocale('pt-br', ptBrLocale);
     EventoListaComponent,
     UserComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    RodapeComponent
   ],
   imports: [
     BrowserModule,
