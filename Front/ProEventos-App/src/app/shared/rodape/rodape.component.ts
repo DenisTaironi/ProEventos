@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rodape',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RodapeComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+  }
+  showMenu(): boolean {
+    if (this.router.url === '/user/login' || this.router.url === '/user/registration') {
+      return false;
+    }
+    return true;
   }
 
 }
